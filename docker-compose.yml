@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+    nginx_q:
+        image: nginx:latest
+        volumes:
+            - ./:/var/www/
+            - ./_docker/nginx/conf.d/:/etc/nginx/conf.d/
+        ports:
+            - "8100:80"
+        depends_on:
+            -   app_q
+        container_name: nginx_q
+
+    app_q:
+        build:
+            context: .
+            dockerfile: _docker/app/Dockerfile
+        volumes:
+            -   ./:/var/www
+        depends_on:
+            -   mysql_q
+        container_name: app_q
+
+    mysql_q:
+        image: mysql:5.7
+        restart: always
+        volumes:
+            -   ./tmp/db:/var/lib/mysql
+        environment:
+            MYSQL_DATABASE: questionnaire
+            MYSQL_ROOT_PASSWORD: root
+        ports:
+            - "8200:3306"
+        command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+        container_name: mysql_q
