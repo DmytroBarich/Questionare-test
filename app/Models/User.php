@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Traits\UserRelationsTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -11,6 +13,11 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    use UserRelationsTrait;
+
+    public const GENDERS = [self::GENDER_MALE, self::GENDER_FEMALE];
+    public const GENDER_MALE = 'male';
+    public const GENDER_FEMALE = 'female';
 
     /**
      * The attributes that are mass assignable.
@@ -18,9 +25,12 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
         'email',
         'password',
+        'first_name',
+        'last_name',
+        'birthday',
+        'gender'
     ];
 
     /**
