@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CityController;
+use App\Http\Controllers\CountryController;
+use App\Http\Controllers\StateController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,7 +22,9 @@ Route::middleware('auth:sanctum')->post('logout', [AuthController::class, 'logou
 
 //user part
 Route::middleware(['auth:sanctum', 'abilities:user:user'])->group(function () {
-    Route::resource('users', 'UserController');
+    Route::resource('cities', CityController::class)->only('index');
+    Route::resource('countries', CountryController::class)->only('index');
+    Route::resource('states', StateController::class)->only('index');
 });
 
 //admin part
