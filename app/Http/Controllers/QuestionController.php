@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Actions\Question\QuestionDeleteAction;
-use App\Actions\Question\QuestionStoreAction;
-use App\Actions\Question\QuestionUpdateAction;
+use App\Actions\Question\AnswerDeleteAction;
+use App\Actions\Question\AnswerStoreAction;
+use App\Actions\Question\AnswerUpdateAction;
 use App\Http\Requests\Question\QuestionStore;
 use App\Http\Requests\Question\QuestionUpdate;
 use App\Http\Resources\Question\QuestionCollection;
@@ -22,7 +22,7 @@ class QuestionController extends Controller
         return new QuestionCollection(Question::all());
     }
 
-    public function store(QuestionStore $request, QuestionStoreAction $action): QuestionResource
+    public function store(QuestionStore $request, AnswerStoreAction $action): QuestionResource
     {
         return new QuestionResource($action->handle($request->validated()));
     }
@@ -32,12 +32,12 @@ class QuestionController extends Controller
         return new QuestionResource($question);
     }
 
-    public function update(QuestionUpdate $request, Question $question, QuestionUpdateAction $action): QuestionResource
+    public function update(QuestionUpdate $request, Question $question, AnswerUpdateAction $action): QuestionResource
     {
         return new QuestionResource($action->handle($request->validated(), $question));
     }
 
-    public function destroy(Question $question, QuestionDeleteAction $action): JsonResponse
+    public function destroy(Question $question, AnswerDeleteAction $action): JsonResponse
     {
         return response()->json(['success' => $action->handle($question)], Response::HTTP_OK);
     }

@@ -31,7 +31,8 @@ class User extends Authenticatable
         'first_name',
         'last_name',
         'birthday',
-        'gender'
+        'gender',
+        'zip_code'
     ];
 
     /**

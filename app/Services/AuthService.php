@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Actions\UserStoreAction;
+use App\Actions\User\UserStoreAction;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -27,7 +27,7 @@ class AuthService
             return '';
         }
 
-        return $user->createToken($tokenName, ['user:'.$user->role->slug])->plainTextToken;
+        return $user->createToken($tokenName, ['user:' . $user->role->slug])->plainTextToken;
     }
 
     public function logout(User $user): bool
