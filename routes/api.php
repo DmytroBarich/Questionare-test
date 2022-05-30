@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\CountryController;
@@ -26,9 +27,13 @@ Route::middleware(['auth:sanctum', 'abilities:user:user'])->group(function () {
     Route::apiResource('cities', CityController::class)->only('index');
     Route::apiResource('countries', CountryController::class)->only('index');
     Route::apiResource('states', StateController::class)->only('index');
+
+    Route::apiResource('answers', AnswerController::class)->only('store');
 });
 
 //admin part
 Route::middleware(['auth:sanctum', 'abilities:user:admin'])->group(function () {
     Route::apiResource('questions', QuestionController::class);
+
+    Route::apiResource('answers', AnswerController::class)->except(['store', 'update']);
 });
