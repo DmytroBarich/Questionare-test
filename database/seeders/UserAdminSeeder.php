@@ -17,10 +17,12 @@ class UserAdminSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         if (!User::where('email', 'admin@admin')->exists()) {
-            User::factory()->for(Role::find(Role::ADMIN_ROLE_ID))->create(['email' => 'admin@admin', 'password' => Hash::make('admin')]);
+            $user = new User(['email' => 'admin@admin', 'password' => 'admin']);
+            $user->role()->associate(Role::find(Role::ADMIN_ROLE_ID));
+            $user->save();
         }
     }
 }

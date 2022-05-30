@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('password');
             $table->date('birthday')->nullable();
             $table->enum('gender', User::GENDERS)->nullable();
+            $table->string('zip_code')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
