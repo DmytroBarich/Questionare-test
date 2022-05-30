@@ -6,6 +6,10 @@ use App\Http\Controllers\CityController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\StateController;
+use App\Mail\AdminAnswerNotification;
+use App\Models\Role;
+use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +22,9 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::get('test', function () {
+
+});
 Route::post('login', [AuthController::class, 'login'])->name('login');
 Route::post('register', [AuthController::class, 'register'])->name('register');
 Route::middleware('auth:sanctum')->post('logout', [AuthController::class, 'logout']);
