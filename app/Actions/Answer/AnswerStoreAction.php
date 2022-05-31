@@ -2,29 +2,30 @@
 
 declare(strict_types=1);
 
-namespace App\Actions\Question;
+namespace App\Actions\Answer;
 
-use App\Dto\Question\QuestionDto;
 use App\Exceptions\BaseException;
-use App\Models\Question;
+use App\Models\Answer;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class QuestionStoreAction
+class AnswerStoreAction
 {
     /**
      * @throws BaseException
      */
-    public function handle(QuestionDto $dto): ?Question
+    public function handle(array $data): ?Answer
     {
         try {
             DB::beginTransaction();
 
-            $question = new Question($dto->toArrayForStore());
-            $question->save();
+            $answer = new Answer($data);
+            $answer->user()->associate(Auth::user());
+            $answer->save();
 
             DB::commit();
 
-            return $question;
+            return $answer;
         } catch (BaseException $exception) {
             DB::rollBack();
             throw new BaseException($exception->getMessage(), $exception->getCode(), $exception);
