@@ -15,7 +15,7 @@ class UserObserver
     {
         $admin = User::whereHas('role', function ($q) {
             $q->where('id', Role::ADMIN_ROLE_ID);
-        })->first();
+        })->get();
         Mail::to($admin)->send(new AdminAnswerNotification($user));
     }
 }

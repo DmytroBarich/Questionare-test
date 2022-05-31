@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Actions\Question;
+namespace App\Actions\Answer;
 
 use App\Exceptions\BaseException;
 use App\Models\Answer;

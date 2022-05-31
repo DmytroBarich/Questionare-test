@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions\Question;
 
+use App\Dto\Question\QuestionDto;
 use App\Exceptions\BaseException;
 use App\Models\Question;
 use Illuminate\Support\Facades\DB;
@@ -13,12 +14,12 @@ class QuestionUpdateAction
     /**
      * @throws BaseException
      */
-    public function handle(array $data, Question $question): ?Question
+    public function handle(QuestionDto $dto, Question $question): ?Question
     {
         try {
             DB::beginTransaction();
 
-            $question->fill($data);
+            $question->fill($dto->toArrayForStore());
             $question->save();
 
             DB::commit();

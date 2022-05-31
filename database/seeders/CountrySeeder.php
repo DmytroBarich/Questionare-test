@@ -21,7 +21,7 @@ class CountrySeeder extends Seeder
             ['name' => 'USA']
         );
         Country::updateOrCreate(
-        ['name' => 'France']
-    );
+            ['name' => 'France']
+        );
     }
 }
